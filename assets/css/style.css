@@ -1,0 +1,8 @@
+.main {
+  background-image: linear-gradient(
+    rgb(180, 250, 230),
+    rgb(211, 226, 255) /* to rgb(250, 238, 255) */
+  );
+  height: 100%;
+  width: 100%;
+}

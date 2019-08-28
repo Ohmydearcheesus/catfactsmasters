@@ -13,22 +13,28 @@ var questionsList = [
 ];
 
 // Functions the game will use
-function write() {
+function writeQuestion() {
+  $("#response-buttons").removeClass("invisible");
   var i = random();
   questionPasser = questionsList[i];
-  emptyDiv.text(questionPasser.question);
-  $("#question").append(emptyDiv);
+  $("#container").text(questionPasser.question);
   usedQuestions.push(questionPasser);
   questionsList.splice(i, 1);
 }
 
+function writeAnswer() {
+  // Take True/False buttons away from screen]
+  $("#response-buttons").addClass("invisible");
+  // Write explanation to emptyDiv
+  $("#container").text(
+    questionPasser.answer + ": " + questionPasser.explanation
+  );
+  // $("#question").append(emptyDiv);
+}
+
+// Removes all children from $("#question")
 function clear() {
-  // Test for true/false
-  // Append score
-  // Take question away from screen
-  $("#question").empty();
-  // Show answer
-  emptyDiv.text(questionPasser.answer + ": " + questionPasser.explanation);
+  $("#container").empty();
 }
 
 // Global variables
@@ -38,14 +44,15 @@ var usedQuestions = [];
 var timer;
 var questionPasser = "";
 var quizState = 0;
-var emptyDiv = $("<div></div>");
-var score;
+var score = 0;
 // var gameState = 0
 
 // RNGeezus
 function random() {
   return Math.floor(Math.random() * questionsList.length);
 }
+
+// -------------------------------------- Game Code Start ---------------------------------------------
 
 // When the DOM loads....
 // Show the title screen, and offer pressing anywhere on the screen to start the game
@@ -57,24 +64,21 @@ $("#question").on("click", function() {
   if (questionsList.length === 0) {
     alert("the end!");
   } else if (quizState === 0) {
-    // Append question to display container, remove question from questions list
-    write();
+    // Append question to display container, remove question from questions list, show True/False buttons
+    writeQuestion();
     quizState = 1;
 
     // Question timer begins
     timer = setTimeout(function() {
       alert("Time's up!");
-      clear();
+      // Show answer
+      writeAnswer();
+
       quizState = 0;
     }, 3000);
-    // Show answer
-    function answer() {
-      // Write explanation to emptyDiv
-      emptyDiv.text(questionPasser.explanation);
-      $("#question").append(emptyDiv);
-    }
   }
 });
+
 // Onclick event for answering a question
 $("#true").on("click", function() {
   clearTimeout(timer);
@@ -83,7 +87,8 @@ $("#true").on("click", function() {
   if (response == answer) {
     alert("+1");
   }
-  clear();
+  // Show answer
+  writeAnswer();
   quizState = 0;
 });
 
@@ -94,9 +99,11 @@ $("#false").on("click", function() {
   if (response == answer) {
     alert("+1");
   }
-  clear();
+  // Show answer
+  writeAnswer();
   quizState = 0;
 });
+
 // The first question appears, and the timer starts
 // User has 10s to select an answer by clicking on it
 //-----> if correct, add to their correct answers count

@@ -11,13 +11,15 @@
 <body>
   <div class="main">
     <h2>Cat Facts Masters!</h2>
-
-    <div id="question">
-      <h2>I am a question! True or False?</h2>
-    </div>
-    <div id="container">
-      <button id="true" value=1></button>True</button>
-      <button id="false" value=0>False</button>
+    <div class="answer-overlay">
+      <div id="question">
+        <h2>I am a question! True or False?</h2>
+        <div id="container"></div>
+      </div>
+      <div id="response-buttons" class="invisible">
+        <button id="true" value="1">True</button>
+        <button id="false" value="0">False</button>
+      </div>
     </div>
   </div>
   <script src="./assets/javascript/app.js"></script>

@@ -16,19 +16,30 @@ var questionsList = [
 function write() {
   var i = random();
   questionPasser = questionsList[i];
-  $("#question").append(questionPasser.question);
+  emptyDiv.text(questionPasser.question);
+  $("#question").append(emptyDiv);
   usedQuestions.push(questionPasser);
   questionsList.splice(i, 1);
-  quizState = 1;
+}
+
+function clear() {
+  // Test for true/false
+  // Append score
+  // Take question away from screen
+  $("#question").empty();
+  // Show answer
+  emptyDiv.text(questionPasser.answer + ": " + questionPasser.explanation);
 }
 
 // Global variables
 
 var usedQuestions = [];
 
-var questionTimer;
+var timer;
 var questionPasser = "";
 var quizState = 0;
+var emptyDiv = $("<div></div>");
+var score;
 // var gameState = 0
 
 // RNGeezus
@@ -42,7 +53,7 @@ function random() {
 
 // Onclick event for start of game and starting a new question
 $("#question").on("click", function() {
-  // Check if there are any questions left
+  // If there are no questions left, display score and offer restart
   if (questionsList.length === 0) {
     alert("the end!");
   } else if (quizState === 0) {
@@ -50,27 +61,42 @@ $("#question").on("click", function() {
     write();
     quizState = 1;
 
-    // Timer begins
-    questionTimer = setTimeout(function() {
+    // Question timer begins
+    timer = setTimeout(function() {
       alert("Time's up!");
-      // Take question away from screen
-      $("#question").empty();
+      clear();
       quizState = 0;
     }, 3000);
     // Show answer
+    function answer() {
+      // Write explanation to emptyDiv
+      emptyDiv.text(questionPasser.explanation);
+      $("#question").append(emptyDiv);
+    }
   }
 });
 // Onclick event for answering a question
-$("#container").on("click", function() {
-  clearTimeout(questionTimer);
-  $(question).empty();
+$("#true").on("click", function() {
+  clearTimeout(timer);
+  var response = $(this).attr("value");
+  var answer = questionPasser.answer;
+  if (response == answer) {
+    alert("+1");
+  }
+  clear();
   quizState = 0;
-  // Take question away from screen
-  // Show answer
-  // Test for true/false
-  // Append score
 });
 
+$("#false").on("click", function() {
+  clearTimeout(timer);
+  var response = $(this).attr("value");
+  var answer = questionPasser.answer;
+  if (response == answer) {
+    alert("+1");
+  }
+  clear();
+  quizState = 0;
+});
 // The first question appears, and the timer starts
 // User has 10s to select an answer by clicking on it
 //-----> if correct, add to their correct answers count

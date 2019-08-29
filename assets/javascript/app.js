@@ -23,13 +23,16 @@ function writeQuestion() {
 }
 
 function writeAnswer() {
-  // Take True/False buttons away from screen]
+  // Take True/False buttons away from screen
   $("#response-buttons").addClass("invisible");
   // Write explanation to emptyDiv
   $("#container").text(
     questionPasser.answer + ": " + questionPasser.explanation
   );
-  // $("#question").append(emptyDiv);
+  timer = setTimeout(function() {
+    writeQuestion();
+    quzState = 1;
+  }, 8000);
 }
 
 // Removes all children from $("#question")
@@ -61,7 +64,7 @@ function random() {
 // Onclick event for start of game and starting a new question
 $("#question").on("click", function() {
   // If there are no questions left, display score and offer restart
-  if (questionsList.length === 0) {
+  if (questionsList.length === 0 && quizState === 0) {
     alert("the end!");
   } else if (quizState === 0) {
     // Append question to display container, remove question from questions list, show True/False buttons
@@ -72,9 +75,8 @@ $("#question").on("click", function() {
     timer = setTimeout(function() {
       alert("Time's up!");
       // Show answer
-      writeAnswer();
-
       quizState = 0;
+      writeAnswer();
     }, 3000);
   }
 });
@@ -82,26 +84,24 @@ $("#question").on("click", function() {
 // Onclick event for answering a question
 $("#true").on("click", function() {
   clearTimeout(timer);
-  var response = $(this).attr("value");
-  var answer = questionPasser.answer;
-  if (response == answer) {
-    alert("+1");
+  if (questionPasser.answer === true) {
+    score++;
+    $("#score").text(score);
   }
   // Show answer
-  writeAnswer();
   quizState = 0;
+  writeAnswer();
 });
 
 $("#false").on("click", function() {
   clearTimeout(timer);
-  var response = $(this).attr("value");
-  var answer = questionPasser.answer;
-  if (response == answer) {
-    alert("+1");
+  if (questionPasser.answer === false) {
+    score++;
+    $("#score").text(score);
   }
   // Show answer
-  writeAnswer();
   quizState = 0;
+  writeAnswer();
 });
 
 // The first question appears, and the timer starts

@@ -1,16 +1,55 @@
 * {
-  border: 1px solid red;
+  /* border: 1px solid red; */
+}
+
+*::first-letter {
+  text-transform: capitalize;
+}
+
+body {
+  /* background-image: linear-gradient(
+    rgb(180, 250, 230),
+    rgb(211, 226, 255) to rgb(250, 238, 255)
+  ); */
+}
+
+h2 {
+  font-size: 4em;
 }
 
 .main {
-  background-image: linear-gradient(
-    rgb(180, 250, 230),
-    rgb(211, 226, 255) /* to rgb(250, 238, 255) */
-  );
   height: 100%;
   width: 100%;
 }
 
+#start-overlay {
+  font-size: 4em;
+}
+
+#question,
+#answer-overlay,
+.score {
+  font-size: 2em;
+}
+
 .invisible {
   visibility: hidden;
+}
+
+#start-overlay {
+  background-color: rgb(153, 223, 255);
+  color: white;
+  line-height: 120%;
+}
+
+.innertext {
+  margin: 80px;
+  padding: 100px;
+  font-size: 0.8em;
+}
+
+button {
+  font-size: 1.5em;
+  border: none;
+  border-radius: 10px;
 }

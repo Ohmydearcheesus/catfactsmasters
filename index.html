@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-  <!-- <link rel="stylesheet" type="text/css" href="./assets/css/reset.css" /> -->
+  <link rel="stylesheet" type="text/css" href="./assets/css/reset.css" />
   <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
   <link rel="stylesheet" type="text/css" href="./assets/css/layout.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -11,17 +11,23 @@
 <body>
   <div class="main">
     <h2>Cat Facts Masters!</h2>
-    <div class="answer-overlay">
-      <div id="question">
-        <h2>I am a question! True or False?</h2>
-        <div id="container"></div>
+    <div id="start-overlay">
+      <div class="innertext">
+        There are 11 questions total. You have 8 seconds to answer each one, and
+        the same amount of time to read the explanation following each one. You
+        can also click the explanation to advance. Good luck! <br /><br />
+        Click or touch anywhere on the screen to begin!
       </div>
-      <div id="response-buttons" class="invisible">
-        <button id="true" value="1">True</button>
-        <button id="false" value="0">False</button>
-      </div>
-      <div>Score: <span id="score"></span></div>
     </div>
+    <div id="answer-overlay"></div>
+    <div id="question">
+      <div id="container"></div>
+    </div>
+    <div id="response-buttons" class="invisible">
+      <button id="true" value="1">True</button>
+      <button id="false" value="0">False</button>
+    </div>
+    <div class="score">Score: <span id="score"></span></div>
   </div>
   <script src="./assets/javascript/app.js"></script>
 </body>
